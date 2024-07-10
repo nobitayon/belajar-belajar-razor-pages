@@ -1,0 +1,76 @@
+﻿@page
+@model belajar_binding_1.Pages.Recipe.Add.IndexModel
+@{
+}
+
+<form class="form-horizontal" method="post">
+    <table id="table-input" class="table table-striped">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+        </tr>
+
+@* 
+        @for (var i = 0; i < 5; i++)
+        {
+            <tr>
+                <td>
+                    <input type="text" name="[@i].FirstName" />
+                </td>
+                <td>
+                    <input type="text" name="[@i].LastName" />
+                </td>
+                <td>
+                    <input type="text" name="[@i].Email" />
+                </td>
+            </tr>
+        } *@
+
+    </table>
+    <button id="add-input-button">Add one input</button>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        let containerDiv = document.getElementById("add-input-button");
+        containerDiv.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            let containerListInput = document.getElementById("table-input");
+            let numberOfInput = containerListInput.getElementsByTagName('tr').length - 1;
+
+
+            let listColumn = ["FirstName", "LastName", "Email"];
+
+            let listTd = [];
+
+            const newTr = document.createElement("tr");
+
+            listColumn.forEach((el) => {
+                const newTd = document.createElement("td");
+
+                const newInput = document.createElement("input");
+                newInput.setAttribute('type', 'text');
+                newInput.setAttribute('name', `[${numberOfInput}].${el}`);
+
+                newTd.appendChild(newInput);
+
+                listTd.push(newTd);
+            });
+
+            listTd.forEach((el) => {
+                newTr.appendChild(el);
+            })
+
+            containerListInput.appendChild(newTr);
+
+            console.log("hanya cek");
+        })
+    </script>
+}
